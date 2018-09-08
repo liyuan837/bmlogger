@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.bmlogger.mapper.LoggerMainMapper">
+
+	<resultMap id="LoggerMainPo" type="com.liyuan.bmlogger.domain.po.loggermain.LoggerMainPo">
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="type_id" property="typeId" jdbcType="INTEGER"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="host_ip" property="hostIp" jdbcType="VARCHAR"/>
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+		<result column="add_user_code" property="addUserCode" jdbcType="VARCHAR"/>
+		<result column="auth_user_code" property="authUserCode" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="fieldSql">
+		 t.id
+		,t.type_id
+		,t.title
+		,t.project_name
+		,t.create_time
+		,t.host_ip
+		,t.add_time
+		,t.add_user_code
+		,t.auth_user_code
+	</sql>
+
+	<sql id="whereSql">
+		<if test="id != null and id != ''">
+			AND t.id = #{id,jdbcType = VARCHAR}
+		</if>
+		<if test="idList != null">
+			AND 
+			<foreach collection="idList" item="idItem" open="(" close=")" separator="OR">
+				t.id = #{idItem,jdbcType = VARCHAR}
+			</foreach>
+		</if>
+		<if test="typeId != null">
+			AND t.type_id = #{typeId,jdbcType = INTEGER}
+		</if>
+		<if test="title != null and title != ''">
+			AND t.title = #{title,jdbcType = VARCHAR}
+		</if>
+		<if test="projectName != null and projectName != ''">
+			AND t.project_name = #{projectName,jdbcType = VARCHAR}
+		</if>
+		<if test="hostIp != null and hostIp != ''">
+			AND t.host_ip = #{hostIp,jdbcType = VARCHAR}
+		</if>
+		<if test="minAddTime != null">
+			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxAddTime != null">
+			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="addUserCode != null and addUserCode != ''">
+			AND t.add_user_code = #{addUserCode,jdbcType = VARCHAR}
+		</if>
+		<if test="authUserCode != null and authUserCode != ''">
+			AND t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}
+		</if>
+	</sql>
+
+	<select id="select" parameterType="String" resultMap="LoggerMainPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_logger_main t 
+		 WHERE t.id = #{id,jdbcType = VARCHAR} 
+	</select>
+
+	<select id="count" parameterType="com.liyuan.bmlogger.domain.condition.loggermain.LoggerMainCondition" resultType="Integer" >
+		SELECT 
+			count(1)
+		  FROM tb_logger_main t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<select id="selectList" parameterType="com.liyuan.bmlogger.domain.condition.loggermain.LoggerMainCondition" resultMap="LoggerMainPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_logger_main t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.liyuan.bmlogger.domain.po.loggermain.LoggerMainPo">
+		INSERT INTO tb_logger_main(  
+			id
+		<if test="typeId != null">
+			,type_id
+		</if>
+		<if test="title != null">
+			,title
+		</if>
+		<if test="projectName != null">
+			,project_name
+		</if>
+		<if test="createTime != null">
+			,create_time
+		</if>
+		<if test="hostIp != null">
+			,host_ip
+		</if>
+		<if test="addTime != null">
+			,add_time
+		</if>
+		<if test="addUserCode != null">
+			,add_user_code
+		</if>
+		<if test="authUserCode != null">
+			,auth_user_code
+		</if>
+		)
+		VALUES( 
+			#{id,jdbcType=VARCHAR}
+		<if test="typeId != null">
+			,#{typeId,jdbcType=INTEGER}
+		</if>
+		<if test="title != null">
+			,#{title,jdbcType=VARCHAR}
+		</if>
+		<if test="projectName != null">
+			,#{projectName,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			,#{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="hostIp != null">
+			,#{hostIp,jdbcType=VARCHAR}
+		</if>
+		<if test="addTime != null">
+			,#{addTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="addUserCode != null">
+			,#{addUserCode,jdbcType=VARCHAR}
+		</if>
+		<if test="authUserCode != null">
+			,#{authUserCode,jdbcType=VARCHAR}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.liyuan.bmlogger.domain.po.loggermain.LoggerMainPo">
+		UPDATE tb_logger_main t
+		 <set>
+		    <if test="typeId != null">
+			    t.type_id = #{typeId,jdbcType = INTEGER}, 
+		    </if>
+		    <if test="title != null">
+			    t.title = #{title,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="projectName != null">
+			    t.project_name = #{projectName,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="createTime != null">
+			    t.create_time = #{createTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="hostIp != null">
+			    t.host_ip = #{hostIp,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="addTime != null">
+			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="addUserCode != null">
+			    t.add_user_code = #{addUserCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="authUserCode != null">
+			    t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}, 
+		    </if>
+	    </set>
+		 WHERE t.id= #{id,jdbcType = VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		 DELETE FROM tb_logger_main
+		  WHERE id = #{id,jdbcType=VARCHAR} 
+	</delete>
+</mapper>

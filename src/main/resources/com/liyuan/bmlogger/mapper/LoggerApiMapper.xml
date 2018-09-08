@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.bmlogger.mapper.LoggerApiMapper">
+
+	<resultMap id="LoggerApiPo" type="com.liyuan.bmlogger.domain.po.loggerapi.LoggerApiPo">
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="content" property="content" jdbcType="VARCHAR"/>
+		<result column="request_uri" property="requestUri" jdbcType="VARCHAR"/>
+		<result column="remote_addr" property="remoteAddr" jdbcType="VARCHAR"/>
+		<result column="request_method" property="requestMethod" jdbcType="VARCHAR"/>
+		<result column="request_params" property="requestParams" jdbcType="VARCHAR"/>
+		<result column="content_type" property="contentType" jdbcType="VARCHAR"/>
+		<result column="api_controller_name" property="apiControllerName" jdbcType="VARCHAR"/>
+		<result column="api_method_name" property="apiMethodName" jdbcType="VARCHAR"/>
+		<result column="api_method_notes" property="apiMethodNotes" jdbcType="VARCHAR"/>
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="use_time" property="useTime" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="VARCHAR"/>
+		<result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="host_ip" property="hostIp" jdbcType="VARCHAR"/>
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+		<result column="add_user_code" property="addUserCode" jdbcType="VARCHAR"/>
+		<result column="auth_user_code" property="authUserCode" jdbcType="VARCHAR"/>
+		<result column="result_data" property="resultData" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="fieldSql">
+		 t.id
+		,t.title
+		,t.content
+		,t.request_uri
+		,t.remote_addr
+		,t.request_method
+		,t.request_params
+		,t.content_type
+		,t.api_controller_name
+		,t.api_method_name
+		,t.api_method_notes
+		,t.start_time
+		,t.end_time
+		,t.use_time
+		,t.status
+		,t.project_name
+		,t.create_time
+		,t.host_ip
+		,t.add_time
+		,t.add_user_code
+		,t.auth_user_code
+		,t.result_data
+	</sql>
+
+	<sql id="whereSql">
+		<if test="id != null and id != ''">
+			AND t.id = #{id,jdbcType = VARCHAR}
+		</if>
+		<if test="idList != null">
+			AND 
+			<foreach collection="idList" item="idItem" open="(" close=")" separator="OR">
+				t.id = #{idItem,jdbcType = VARCHAR}
+			</foreach>
+		</if>
+		<if test="title != null and title != ''">
+			AND t.title = #{title,jdbcType = VARCHAR}
+		</if>
+		<if test="content != null and content != ''">
+			AND t.content = #{content,jdbcType = VARCHAR}
+		</if>
+		<if test="requestUri != null and requestUri != ''">
+			AND t.request_uri = #{requestUri,jdbcType = VARCHAR}
+		</if>
+		<if test="remoteAddr != null and remoteAddr != ''">
+			AND t.remote_addr = #{remoteAddr,jdbcType = VARCHAR}
+		</if>
+		<if test="requestMethod != null and requestMethod != ''">
+			AND t.request_method = #{requestMethod,jdbcType = VARCHAR}
+		</if>
+		<if test="requestParams != null and requestParams != ''">
+			AND t.request_params = #{requestParams,jdbcType = VARCHAR}
+		</if>
+		<if test="contentType != null and contentType != ''">
+			AND t.content_type = #{contentType,jdbcType = VARCHAR}
+		</if>
+		<if test="apiControllerName != null and apiControllerName != ''">
+			AND t.api_controller_name = #{apiControllerName,jdbcType = VARCHAR}
+		</if>
+		<if test="apiMethodName != null and apiMethodName != ''">
+			AND t.api_method_name = #{apiMethodName,jdbcType = VARCHAR}
+		</if>
+		<if test="apiMethodNotes != null and apiMethodNotes != ''">
+			AND t.api_method_notes = #{apiMethodNotes,jdbcType = VARCHAR}
+		</if>
+		<if test="useTime != null">
+			AND t.use_time = #{useTime,jdbcType = INTEGER}
+		</if>
+		<if test="status != null and status != ''">
+			AND t.status = #{status,jdbcType = VARCHAR}
+		</if>
+		<if test="projectName != null and projectName != ''">
+			AND t.project_name = #{projectName,jdbcType = VARCHAR}
+		</if>
+		<if test="hostIp != null and hostIp != ''">
+			AND t.host_ip = #{hostIp,jdbcType = VARCHAR}
+		</if>
+		<if test="minAddTime != null">
+			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxAddTime != null">
+			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="addUserCode != null and addUserCode != ''">
+			AND t.add_user_code = #{addUserCode,jdbcType = VARCHAR}
+		</if>
+		<if test="authUserCode != null and authUserCode != ''">
+			AND t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}
+		</if>
+		<if test="resultData != null and resultData != ''">
+			AND t.result_data = #{resultData,jdbcType = VARCHAR}
+		</if>
+	</sql>
+
+	<select id="select" parameterType="String" resultMap="LoggerApiPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_logger_api t 
+		 WHERE t.id = #{id,jdbcType = VARCHAR} 
+	</select>
+
+	<select id="count" parameterType="com.liyuan.bmlogger.domain.condition.loggerapi.LoggerApiCondition" resultType="Integer" >
+		SELECT 
+			count(1)
+		  FROM tb_logger_api t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<select id="selectList" parameterType="com.liyuan.bmlogger.domain.condition.loggerapi.LoggerApiCondition" resultMap="LoggerApiPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_logger_api t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.liyuan.bmlogger.domain.po.loggerapi.LoggerApiPo">
+		INSERT INTO tb_logger_api(  
+			id
+		<if test="title != null">
+			,title
+		</if>
+		<if test="content != null">
+			,content
+		</if>
+		<if test="requestUri != null">
+			,request_uri
+		</if>
+		<if test="remoteAddr != null">
+			,remote_addr
+		</if>
+		<if test="requestMethod != null">
+			,request_method
+		</if>
+		<if test="requestParams != null">
+			,request_params
+		</if>
+		<if test="contentType != null">
+			,content_type
+		</if>
+		<if test="apiControllerName != null">
+			,api_controller_name
+		</if>
+		<if test="apiMethodName != null">
+			,api_method_name
+		</if>
+		<if test="apiMethodNotes != null">
+			,api_method_notes
+		</if>
+		<if test="startTime != null">
+			,start_time
+		</if>
+		<if test="endTime != null">
+			,end_time
+		</if>
+		<if test="useTime != null">
+			,use_time
+		</if>
+		<if test="status != null">
+			,status
+		</if>
+		<if test="projectName != null">
+			,project_name
+		</if>
+		<if test="createTime != null">
+			,create_time
+		</if>
+		<if test="hostIp != null">
+			,host_ip
+		</if>
+		<if test="addTime != null">
+			,add_time
+		</if>
+		<if test="addUserCode != null">
+			,add_user_code
+		</if>
+		<if test="authUserCode != null">
+			,auth_user_code
+		</if>
+		<if test="resultData != null">
+			,result_data
+		</if>
+		)
+		VALUES( 
+			#{id,jdbcType=VARCHAR}
+		<if test="title != null">
+			,#{title,jdbcType=VARCHAR}
+		</if>
+		<if test="content != null">
+			,#{content,jdbcType=VARCHAR}
+		</if>
+		<if test="requestUri != null">
+			,#{requestUri,jdbcType=VARCHAR}
+		</if>
+		<if test="remoteAddr != null">
+			,#{remoteAddr,jdbcType=VARCHAR}
+		</if>
+		<if test="requestMethod != null">
+			,#{requestMethod,jdbcType=VARCHAR}
+		</if>
+		<if test="requestParams != null">
+			,#{requestParams,jdbcType=VARCHAR}
+		</if>
+		<if test="contentType != null">
+			,#{contentType,jdbcType=VARCHAR}
+		</if>
+		<if test="apiControllerName != null">
+			,#{apiControllerName,jdbcType=VARCHAR}
+		</if>
+		<if test="apiMethodName != null">
+			,#{apiMethodName,jdbcType=VARCHAR}
+		</if>
+		<if test="apiMethodNotes != null">
+			,#{apiMethodNotes,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			,#{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			,#{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="useTime != null">
+			,#{useTime,jdbcType=INTEGER}
+		</if>
+		<if test="status != null">
+			,#{status,jdbcType=VARCHAR}
+		</if>
+		<if test="projectName != null">
+			,#{projectName,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			,#{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="hostIp != null">
+			,#{hostIp,jdbcType=VARCHAR}
+		</if>
+		<if test="addTime != null">
+			,#{addTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="addUserCode != null">
+			,#{addUserCode,jdbcType=VARCHAR}
+		</if>
+		<if test="authUserCode != null">
+			,#{authUserCode,jdbcType=VARCHAR}
+		</if>
+		<if test="resultData != null">
+			,#{resultData,jdbcType=VARCHAR}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.liyuan.bmlogger.domain.po.loggerapi.LoggerApiPo">
+		UPDATE tb_logger_api t
+		 <set>
+		    <if test="title != null">
+			    t.title = #{title,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="content != null">
+			    t.content = #{content,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="requestUri != null">
+			    t.request_uri = #{requestUri,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="remoteAddr != null">
+			    t.remote_addr = #{remoteAddr,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="requestMethod != null">
+			    t.request_method = #{requestMethod,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="requestParams != null">
+			    t.request_params = #{requestParams,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="contentType != null">
+			    t.content_type = #{contentType,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="apiControllerName != null">
+			    t.api_controller_name = #{apiControllerName,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="apiMethodName != null">
+			    t.api_method_name = #{apiMethodName,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="apiMethodNotes != null">
+			    t.api_method_notes = #{apiMethodNotes,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="startTime != null">
+			    t.start_time = #{startTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="endTime != null">
+			    t.end_time = #{endTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="useTime != null">
+			    t.use_time = #{useTime,jdbcType = INTEGER}, 
+		    </if>
+		    <if test="status != null">
+			    t.status = #{status,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="projectName != null">
+			    t.project_name = #{projectName,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="createTime != null">
+			    t.create_time = #{createTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="hostIp != null">
+			    t.host_ip = #{hostIp,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="addTime != null">
+			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="addUserCode != null">
+			    t.add_user_code = #{addUserCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="authUserCode != null">
+			    t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="resultData != null">
+			    t.result_data = #{resultData,jdbcType = VARCHAR}, 
+		    </if>
+	    </set>
+		 WHERE t.id= #{id,jdbcType = VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		 DELETE FROM tb_logger_api
+		  WHERE id = #{id,jdbcType=VARCHAR} 
+	</delete>
+</mapper>
