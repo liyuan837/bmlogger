@@ -35,6 +35,6 @@ public class LoggerMainVo implements Serializable {
 	private String addUserCode;
 
 	@ApiModelProperty(value = "授权用户编号")
-	private String authUserCode;
+	private String authCode;
 
 }

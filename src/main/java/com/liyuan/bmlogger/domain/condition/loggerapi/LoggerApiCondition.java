@@ -88,7 +88,7 @@ public class LoggerApiCondition extends BaseCondition implements Serializable {
 	/**
 	 * 
 	*/
-	private String authUserCode;
+	private String authCode;
 	/**
 	 * 请求返回数据
 	*/

@@ -1,4 +1,4 @@
-package com.liyuan.bmlogger.form.loggermain;
+package com.liyuan.bmlogger.form.authuser;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,26 +11,20 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "日志主表")
-public class LoggerMainQueryForm extends BaseQueryForm implements Serializable {
+@ApiModel(description = "授权用户表")
+public class AuthUserQueryForm extends BaseQueryForm implements Serializable {
 
-	@ApiModelProperty(value = "日志主键")
-	private String id;
+	@ApiModelProperty(value = "用户编号")
+	private String userCode;
 
-	@ApiModelProperty(value = "日志主键列表")
-	private List<String> idList;
+	@ApiModelProperty(value = "用户编号列表")
+	private List<String> userCodeList;
 
-	@ApiModelProperty(value = "外键关联日志类型表")
-	private Integer typeId;
+	@ApiModelProperty(value = "用户姓名")
+	private String name;
 
-	@ApiModelProperty(value = "日志标题")
-	private String title;
-
-	@ApiModelProperty(value = "所属项目名")
-	private String projectName;
-
-	@ApiModelProperty(value = "日志来源")
-	private String hostIp;
+	@ApiModelProperty(value = "授权码")
+	private String authCode;
 
 	@ApiModelProperty(value = "最小,格式为:" + DateUtil.FORMAT)
 	@DateTimeFormat(pattern = DateUtil.FORMAT)
@@ -43,7 +37,7 @@ public class LoggerMainQueryForm extends BaseQueryForm implements Serializable {
 	@ApiModelProperty(value = "")
 	private String addUserCode;
 
-	@ApiModelProperty(value = "授权用户编号")
-	private String authCode;
+	@ApiModelProperty(value = "")
+	private String optUserCode;
 
 }

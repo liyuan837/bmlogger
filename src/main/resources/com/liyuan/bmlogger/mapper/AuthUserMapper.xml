@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.bmlogger.mapper.AuthUserMapper">
+
+	<resultMap id="AuthUserPo" type="com.liyuan.bmlogger.domain.po.authuser.AuthUserPo">
+		<result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="auth_code" property="authCode" jdbcType="VARCHAR"/>
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+		<result column="add_user_code" property="addUserCode" jdbcType="VARCHAR"/>
+		<result column="opt_time" property="optTime" jdbcType="TIMESTAMP"/>
+		<result column="opt_user_code" property="optUserCode" jdbcType="VARCHAR"/>
+		<result column="auth_time" property="authTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="fieldSql">
+		 t.user_code
+		,t.name
+		,t.auth_code
+		,t.add_time
+		,t.add_user_code
+		,t.opt_time
+		,t.opt_user_code
+		,t.auth_time
+	</sql>
+
+	<sql id="whereSql">
+		<if test="userCode != null and userCode != ''">
+			AND t.user_code = #{userCode,jdbcType = VARCHAR}
+		</if>
+		<if test="userCodeList != null">
+			AND 
+			<foreach collection="userCodeList" item="userCodeItem" open="(" close=")" separator="OR">
+				t.user_code = #{userCodeItem,jdbcType = VARCHAR}
+			</foreach>
+		</if>
+		<if test="name != null and name != ''">
+			AND t.name = #{name,jdbcType = VARCHAR}
+		</if>
+		<if test="authCode != null and authCode != ''">
+			AND t.auth_code = #{authCode,jdbcType = VARCHAR}
+		</if>
+		<if test="minAddTime != null">
+			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxAddTime != null">
+			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="addUserCode != null and addUserCode != ''">
+			AND t.add_user_code = #{addUserCode,jdbcType = VARCHAR}
+		</if>
+		<if test="optUserCode != null and optUserCode != ''">
+			AND t.opt_user_code = #{optUserCode,jdbcType = VARCHAR}
+		</if>
+	</sql>
+
+	<select id="select" parameterType="String" resultMap="AuthUserPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_auth_user t 
+		 WHERE t.user_code = #{userCode,jdbcType = VARCHAR} 
+	</select>
+
+	<select id="count" parameterType="com.liyuan.bmlogger.domain.condition.authuser.AuthUserCondition" resultType="Integer" >
+		SELECT 
+			count(1)
+		  FROM tb_auth_user t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<select id="selectList" parameterType="com.liyuan.bmlogger.domain.condition.authuser.AuthUserCondition" resultMap="AuthUserPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM tb_auth_user t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.liyuan.bmlogger.domain.po.authuser.AuthUserPo">
+		INSERT INTO tb_auth_user(  
+			user_code
+		<if test="name != null">
+			,name
+		</if>
+		<if test="authCode != null">
+			,auth_code
+		</if>
+		<if test="addTime != null">
+			,add_time
+		</if>
+		<if test="addUserCode != null">
+			,add_user_code
+		</if>
+		<if test="optTime != null">
+			,opt_time
+		</if>
+		<if test="optUserCode != null">
+			,opt_user_code
+		</if>
+		<if test="authTime != null">
+			,auth_time
+		</if>
+		)
+		VALUES( 
+			#{userCode,jdbcType=VARCHAR}
+		<if test="name != null">
+			,#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="authCode != null">
+			,#{authCode,jdbcType=VARCHAR}
+		</if>
+		<if test="addTime != null">
+			,#{addTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="addUserCode != null">
+			,#{addUserCode,jdbcType=VARCHAR}
+		</if>
+		<if test="optTime != null">
+			,#{optTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="optUserCode != null">
+			,#{optUserCode,jdbcType=VARCHAR}
+		</if>
+		<if test="authTime != null">
+			,#{authTime,jdbcType=TIMESTAMP}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.liyuan.bmlogger.domain.po.authuser.AuthUserPo">
+		UPDATE tb_auth_user t
+		 <set>
+		    <if test="name != null">
+			    t.name = #{name,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="authCode != null">
+			    t.auth_code = #{authCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="addTime != null">
+			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="addUserCode != null">
+			    t.add_user_code = #{addUserCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="optTime != null">
+			    t.opt_time = #{optTime,jdbcType = TIMESTAMP}, 
+		    </if>
+		    <if test="optUserCode != null">
+			    t.opt_user_code = #{optUserCode,jdbcType = VARCHAR}, 
+		    </if>
+		    <if test="authTime != null">
+			    t.auth_time = #{authTime,jdbcType = TIMESTAMP}, 
+		    </if>
+	    </set>
+		 WHERE t.user_code= #{userCode,jdbcType = VARCHAR}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		 DELETE FROM tb_auth_user
+		  WHERE user_code = #{userCode,jdbcType=VARCHAR} 
+	</delete>
+</mapper>

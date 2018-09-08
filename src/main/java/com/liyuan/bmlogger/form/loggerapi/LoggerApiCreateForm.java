@@ -1,6 +1,8 @@
 package com.liyuan.bmlogger.form.loggerapi;
 
 import java.io.Serializable;
+
+import com.liyuan.bmlogger.form.loggermain.LoggerMainCreateForm;
 import com.liyuan.bmlogger.util.DateUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
@@ -10,7 +12,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(description = "接口日志")
-public class LoggerApiCreateForm implements Serializable {
+public class LoggerApiCreateForm  extends LoggerMainCreateForm implements Serializable{
 
 	@ApiModelProperty(value = "日志标题")
 	private String title;
@@ -70,7 +72,7 @@ public class LoggerApiCreateForm implements Serializable {
 	private String addUserCode;
 
 	@ApiModelProperty(value = "")
-	private String authUserCode;
+	private String authCode;
 
 	@ApiModelProperty(value = "请求返回数据")
 	private String resultData;

@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/loggerapi")
@@ -69,6 +70,7 @@ public class LoggerApiController extends BaseController {
 	@PostMapping(value = "/add")
 	public ResponseEntity<LoggerApiVo> add(@RequestBody@Valid LoggerApiCreateForm form) throws bmloggerException {
 		LoggerApiPo po = CopyUtil.transfer(form, LoggerApiPo.class);
+		po.setId(UUID.randomUUID().toString());
 		po.setAddTime(new Date());
 		loggerApiService.insert(po);
 		LoggerApiVo vo = CopyUtil.transfer(po, LoggerApiVo.class);

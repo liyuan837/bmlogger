@@ -23,7 +23,7 @@
 		<result column="host_ip" property="hostIp" jdbcType="VARCHAR"/>
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
 		<result column="add_user_code" property="addUserCode" jdbcType="VARCHAR"/>
-		<result column="auth_user_code" property="authUserCode" jdbcType="VARCHAR"/>
+		<result column="auth_code" property="authCode" jdbcType="VARCHAR"/>
 		<result column="result_data" property="resultData" jdbcType="VARCHAR"/>
 	</resultMap>
 
@@ -48,7 +48,7 @@
 		,t.host_ip
 		,t.add_time
 		,t.add_user_code
-		,t.auth_user_code
+		,t.auth_code
 		,t.result_data
 	</sql>
 
@@ -113,8 +113,8 @@
 		<if test="addUserCode != null and addUserCode != ''">
 			AND t.add_user_code = #{addUserCode,jdbcType = VARCHAR}
 		</if>
-		<if test="authUserCode != null and authUserCode != ''">
-			AND t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}
+		<if test="authCode != null and authCode != ''">
+			AND t.auth_code = #{authCode,jdbcType = VARCHAR}
 		</if>
 		<if test="resultData != null and resultData != ''">
 			AND t.result_data = #{resultData,jdbcType = VARCHAR}
@@ -206,8 +206,8 @@
 		<if test="addUserCode != null">
 			,add_user_code
 		</if>
-		<if test="authUserCode != null">
-			,auth_user_code
+		<if test="authCode != null">
+			,auth_code
 		</if>
 		<if test="resultData != null">
 			,result_data
@@ -272,8 +272,8 @@
 		<if test="addUserCode != null">
 			,#{addUserCode,jdbcType=VARCHAR}
 		</if>
-		<if test="authUserCode != null">
-			,#{authUserCode,jdbcType=VARCHAR}
+		<if test="authCode != null">
+			,#{authCode,jdbcType=VARCHAR}
 		</if>
 		<if test="resultData != null">
 			,#{resultData,jdbcType=VARCHAR}
@@ -341,8 +341,8 @@
 		    <if test="addUserCode != null">
 			    t.add_user_code = #{addUserCode,jdbcType = VARCHAR}, 
 		    </if>
-		    <if test="authUserCode != null">
-			    t.auth_user_code = #{authUserCode,jdbcType = VARCHAR}, 
+		    <if test="authCode != null">
+			    t.auth_code = #{authCode,jdbcType = VARCHAR}, 
 		    </if>
 		    <if test="resultData != null">
 			    t.result_data = #{resultData,jdbcType = VARCHAR}, 

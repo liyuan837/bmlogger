@@ -75,7 +75,7 @@ public class LoggerApiUpdateForm implements Serializable {
 	private String addUserCode;
 
 	@ApiModelProperty(value = "")
-	private String authUserCode;
+	private String authCode;
 
 	@ApiModelProperty(value = "请求返回数据")
 	private String resultData;

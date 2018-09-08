@@ -6,10 +6,10 @@
 	<groupId>com.liyuan</groupId>
 	<artifactId>bmlogger</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>null</packaging>
 
 	<name>bmlogger</name>
-	<description>this is an api</description>
+	<description>null</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

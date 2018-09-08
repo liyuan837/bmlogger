@@ -42,5 +42,5 @@ public class LoggerMainPo implements Serializable {
 	/**
 	 * 授权用户编号
 	*/
-	private String authUserCode;
+	private String authCode;
 }
