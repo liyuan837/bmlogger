@@ -60,28 +60,16 @@ public class JwtInterceptor implements HandlerInterceptor{
             }
         }
 
-        //[4]模拟拦截所有JwtController下的请求
-        if(urlPath.indexOf("/jwt/") >=0){
-            String authHeader = httpServletRequest.getHeader("Authorization");
-            if (authHeader == null || authHeader.equals("")) {
-                //拦截，并且返回错误信息
-                errorResponse(httpServletResponse,201,"尚未携带有效的Token");
-                return false;
-            }else{
-                return true;
-            }
+        //[4]其他接口都需要JWT token验证
+        String authHeader = httpServletRequest.getHeader("authCode");
+
+        if (authHeader == null || authHeader.equals("")) {
+            //拦截，并且返回错误信息
+            errorResponse(httpServletResponse,201,"尚未携带有效的authCode");
+            return false;
+        }else{
+            return true;
         }
-//        //[4]其他接口都需要JWT token验证
-//        String authHeader = httpServletRequest.getHeader("Authorization");
-//
-//        if (authHeader == null || authHeader.equals("")) {
-//            //拦截，并且返回错误信息
-//            errorResponse(httpServletResponse,201,"尚未携带有效的Token");
-//            return false;
-//        }else{
-//            return true;
-//        }
-        return true;
     }
 
     @Override
