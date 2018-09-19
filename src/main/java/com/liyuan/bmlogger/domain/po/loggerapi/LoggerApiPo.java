@@ -95,4 +95,8 @@ public class LoggerApiPo implements Serializable {
 	 * 请求返回数据
 	*/
 	private String resultData;
+    /**
+     * 接口调用结果状态
+     */
+    private Integer requestState;
 }

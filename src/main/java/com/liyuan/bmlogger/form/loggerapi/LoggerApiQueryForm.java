@@ -79,4 +79,6 @@ public class LoggerApiQueryForm extends BaseQueryForm implements Serializable {
 	@ApiModelProperty(value = "请求返回数据")
 	private String resultData;
 
+    @ApiModelProperty(value = "接口调用结果状态")
+    private Integer requestState;
 }

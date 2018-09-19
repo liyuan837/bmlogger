@@ -44,12 +44,12 @@ public class LoggerApiCreateForm  extends LoggerMainCreateForm implements Serial
 	@ApiModelProperty(value = "API方法说明")
 	private String apiMethodNotes;
 
-	@ApiModelProperty(value = "请求开始时间,格式为:" + DateUtil.FORMAT)
-	@DateTimeFormat(pattern = DateUtil.FORMAT)
+	@ApiModelProperty(value = "请求开始时间,格式为:" + DateUtil.Long_FORMAT)
+	@DateTimeFormat(pattern = DateUtil.Long_FORMAT)
 	private Date startTime;
 
-	@ApiModelProperty(value = "请求结束时间,格式为:" + DateUtil.FORMAT)
-	@DateTimeFormat(pattern = DateUtil.FORMAT)
+	@ApiModelProperty(value = "请求结束时间,格式为:" + DateUtil.Long_FORMAT)
+	@DateTimeFormat(pattern = DateUtil.Long_FORMAT)
 	private Date endTime;
 
 	@ApiModelProperty(value = "耗时")
@@ -69,12 +69,12 @@ public class LoggerApiCreateForm  extends LoggerMainCreateForm implements Serial
 	private String hostIp;
 
 	@ApiModelProperty(value = "")
-	private String addUserCode;
-
-	@ApiModelProperty(value = "")
 	private String authCode;
 
-	@ApiModelProperty(value = "请求返回数据")
+    @ApiModelProperty(value = "接口调用返回数据")
 	private String resultData;
+
+    @ApiModelProperty(value = "接口调用结果状态")
+    private Integer requestState;
 
 }

@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @description:用户Authorthon验证拦截器
+ * @description:用户authCOde验证拦截器
  */
 @Component
 public class JwtInterceptor implements HandlerInterceptor{

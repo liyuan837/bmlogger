@@ -11,9 +11,17 @@ import lombok.Data;
 @Data
 @ApiModel(description = "授权用户表")
 public class AuthUserCreateForm implements Serializable {
+    @ApiModelProperty(value = "用户编号")
+    private String userCode;
 
 	@ApiModelProperty(value = "用户姓名")
 	private String name;
+
+    @ApiModelProperty(value = "项目编号")
+    private Integer projectId;
+
+    @ApiModelProperty(value = "项目名")
+    private String projectName;
 
 	@ApiModelProperty(value = "授权码")
 	private String authCode;

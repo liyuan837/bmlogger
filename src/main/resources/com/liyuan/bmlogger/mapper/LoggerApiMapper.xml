@@ -25,6 +25,7 @@
 		<result column="add_user_code" property="addUserCode" jdbcType="VARCHAR"/>
 		<result column="auth_code" property="authCode" jdbcType="VARCHAR"/>
 		<result column="result_data" property="resultData" jdbcType="VARCHAR"/>
+        <result column="request_state" property="requestState" jdbcType="INTEGER"/>
 	</resultMap>
 
 	<sql id="fieldSql">
@@ -50,6 +51,7 @@
 		,t.add_user_code
 		,t.auth_code
 		,t.result_data
+		,t.request_state
 	</sql>
 
 	<sql id="whereSql">
@@ -105,7 +107,7 @@
 			AND t.host_ip = #{hostIp,jdbcType = VARCHAR}
 		</if>
 		<if test="minAddTime != null">
-			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+			AND t.add_time &gt; #{minAddTime,jdbcType = TIMESTAMP}
 		</if>
 		<if test="maxAddTime != null">
 			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
@@ -119,6 +121,9 @@
 		<if test="resultData != null and resultData != ''">
 			AND t.result_data = #{resultData,jdbcType = VARCHAR}
 		</if>
+        <if test="requestState != null and requestState != ''">
+            AND t.request_state = #{requestState,jdbcType = INTEGER}
+        </if>
 	</sql>
 
 	<select id="select" parameterType="String" resultMap="LoggerApiPo">
@@ -144,6 +149,7 @@
 		<where>
 			<include refid="whereSql"/>
 		</where>
+        ORDER BY t.add_time ASC
 	</select>
 
 	<insert id="insert" parameterType="com.liyuan.bmlogger.domain.po.loggerapi.LoggerApiPo">
@@ -212,6 +218,9 @@
 		<if test="resultData != null">
 			,result_data
 		</if>
+        <if test="requestState != null">
+            ,request_state
+        </if>
 		)
 		VALUES( 
 			#{id,jdbcType=VARCHAR}
@@ -278,6 +287,9 @@
 		<if test="resultData != null">
 			,#{resultData,jdbcType=VARCHAR}
 		</if>
+        <if test="requestState != null">
+            ,#{requestState,jdbcType=INTEGER}
+        </if>
 		)
 	</insert>
 
@@ -347,6 +359,9 @@
 		    <if test="resultData != null">
 			    t.result_data = #{resultData,jdbcType = VARCHAR}, 
 		    </if>
+             <if test="requestState != null">
+                 t.request_state = #{requestState,jdbcType = INTEGER},
+             </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = VARCHAR}
 	</update>

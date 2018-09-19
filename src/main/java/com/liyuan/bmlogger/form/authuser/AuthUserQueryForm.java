@@ -23,6 +23,12 @@ public class AuthUserQueryForm extends BaseQueryForm implements Serializable {
 	@ApiModelProperty(value = "用户姓名")
 	private String name;
 
+    @ApiModelProperty(value = "项目编号")
+    private Integer projectId;
+
+    @ApiModelProperty(value = "项目名")
+    private String projectName;
+
 	@ApiModelProperty(value = "授权码")
 	private String authCode;
 

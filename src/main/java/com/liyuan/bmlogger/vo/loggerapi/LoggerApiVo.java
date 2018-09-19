@@ -2,6 +2,9 @@ package com.liyuan.bmlogger.vo.loggerapi;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liyuan.bmlogger.util.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,9 +47,11 @@ public class LoggerApiVo implements Serializable {
 	private String apiMethodNotes;
 
 	@ApiModelProperty(value = "请求开始时间")
+    @JsonFormat(timezone = "GMT+8", pattern = DateUtil.Long_FORMAT)
 	private Date startTime;
 
 	@ApiModelProperty(value = "请求结束时间")
+    @JsonFormat(timezone = "GMT+8", pattern = DateUtil.Long_FORMAT)
 	private Date endTime;
 
 	@ApiModelProperty(value = "耗时")
@@ -59,6 +64,7 @@ public class LoggerApiVo implements Serializable {
 	private String projectName;
 
 	@ApiModelProperty(value = "日志生成时间")
+    @JsonFormat(timezone = "GMT+8", pattern = DateUtil.Long_FORMAT)
 	private Date createTime;
 
 	@ApiModelProperty(value = "日志来源")
@@ -76,4 +82,6 @@ public class LoggerApiVo implements Serializable {
 	@ApiModelProperty(value = "请求返回数据")
 	private String resultData;
 
+    @ApiModelProperty(value = "接口调用结果状态")
+    private Integer requestState;
 }

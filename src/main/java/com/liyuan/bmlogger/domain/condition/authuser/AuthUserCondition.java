@@ -21,6 +21,14 @@ public class AuthUserCondition extends BaseCondition implements Serializable {
 	 * 用户姓名
 	*/
 	private String name;
+    /**
+     *项目编号
+     */
+    private Integer projectId;
+    /**
+     * 项目名
+     */
+    private String projectName;
 	/**
 	 * 授权码
 	*/
